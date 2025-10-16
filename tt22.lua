@@ -1,12 +1,9 @@
--- ✅ Load the UI Library
+-- 🧰 Load UI Library
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostPlayer352/UI-Library/refs/heads/main/Ghost%20Gui"))()
-local Window = Library:CreateWindow("Auto Farm Menu") -- 🌟 Menu Title
--- put the whole farm script here
-print("✅ Auto Farm Script Loaded")
+local Window = Library:CreateWindow("🔥 Auto Farm Menu")
 
-
--- 🧭 Tab / Section
-local FarmTab = Window:CreateTab("Main")
+-- 🗂 Create Tab
+local MainTab = Window:CreateTab("Main")
 
 -- 🧠 Variables
 local autoTrashEnabled = false
@@ -18,14 +15,14 @@ local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
--- 🔸 Remote Events (based on your explorer)
+-- 📡 Remote Events
 local CleanTrashEvent = ReplicatedStorage:WaitForChild("Communication"):WaitForChild("SCleanTrash")
 local MoneyEvent = ReplicatedStorage:WaitForChild("Communication"):WaitForChild("CShowMoneyDelta")
 
 -----------------------------------------------------------
 -- 🧹 AUTO TRASH COLLECTOR
 -----------------------------------------------------------
-FarmTab:CreateToggle("Auto Trash Collector", false, function(state)
+MainTab:CreateToggle("Auto Trash Collector", false, function(state)
 	autoTrashEnabled = state
 	if state then
 		task.spawn(function()
@@ -40,31 +37,31 @@ FarmTab:CreateToggle("Auto Trash Collector", false, function(state)
 						end
 					end
 				end
-				task.wait(2) -- 🕒 interval for collecting trash
+				task.wait(2) -- interval for collecting trash
 			end
 		end)
 	end
 end)
 
 -----------------------------------------------------------
--- 💰 AUTO MONEY ADDER (for testing only)
+-- 💰 AUTO MONEY ADDER
 -----------------------------------------------------------
-FarmTab:CreateToggle("Auto Money", false, function(state)
+MainTab:CreateToggle("Auto Money", false, function(state)
 	autoMoneyEnabled = state
 	if state then
 		task.spawn(function()
 			while autoMoneyEnabled do
 				MoneyEvent:FireServer(1000) -- 💵 amount per tick
-				task.wait(1) -- 🕒 interval for adding money
+				task.wait(1) -- interval for adding money
 			end
 		end)
 	end
 end)
 
 -----------------------------------------------------------
--- 🏃 ANTI-AFK
+-- 💤 ANTI-AFK
 -----------------------------------------------------------
-FarmTab:CreateToggle("Anti-AFK", false, function(state)
+MainTab:CreateToggle("Anti-AFK", false, function(state)
 	antiAFKEnabled = state
 	if state then
 		local vu = game:GetService("VirtualUser")
@@ -77,3 +74,5 @@ FarmTab:CreateToggle("Anti-AFK", false, function(state)
 		end)
 	end
 end)
+
+print("✅ Auto Farm Script Loaded!")
